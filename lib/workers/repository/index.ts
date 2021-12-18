@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import { GlobalConfig } from '../../config/global';
 import type { RenovateConfig } from '../../config/types';
 import { logger, setMeta } from '../../logger';
+import { pkg } from '../../package';
 import { removeDanglingContainers } from '../../util/exec/docker';
 import { deleteLocalFile, privateCacheDir } from '../../util/fs';
 import * as queue from '../../util/http/queue';
@@ -16,14 +17,6 @@ import { extractDependencies, updateRepo } from './process';
 import { ProcessResult, processResult } from './result';
 import { printRequestStats } from './stats';
 
-let renovateVersion = 'unknown';
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  renovateVersion = require('../../../package.json').version;
-} catch (err) /* istanbul ignore next */ {
-  logger.debug({ err }, 'Error getting renovate version');
-}
-
 // istanbul ignore next
 export async function renovateRepository(
   repoConfig: RenovateConfig,
@@ -33,7 +26,7 @@ export async function renovateRepository(
   let config = GlobalConfig.set(repoConfig);
   await removeDanglingContainers();
   setMeta({ repository: config.repository });
-  logger.info({ renovateVersion }, 'Repository started');
+  logger.info({ renovateVersion: pkg.version }, 'Repository started');
   logger.trace({ config });
   let repoResult: ProcessResult;
   queue.clear();

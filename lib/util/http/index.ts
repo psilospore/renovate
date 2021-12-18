@@ -3,6 +3,7 @@ import merge from 'deepmerge';
 import got, { Options, Response } from 'got';
 import { HOST_DISABLED } from '../../constants/error-messages';
 import { logger } from '../../logger';
+import { pkg } from '../../package';
 import { ExternalHostError } from '../../types/errors/external-host-error';
 import * as memCache from '../cache/memory';
 import { clone } from '../clone';
@@ -69,14 +70,7 @@ function cloneResponse<T extends Buffer | string | any>(
 }
 
 function applyDefaultHeaders(options: Options): void {
-  let renovateVersion = 'unknown';
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    renovateVersion = require('../../../package.json').version;
-  } catch (err) /* istanbul ignore next */ {
-    logger.debug({ err }, 'Error getting renovate version');
-  }
-
+  const renovateVersion = pkg.version;
   options.headers = {
     ...options.headers,
     'user-agent':

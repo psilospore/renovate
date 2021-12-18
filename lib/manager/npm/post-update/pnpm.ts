@@ -1,4 +1,4 @@
-import { validRange } from 'semver';
+import semver from 'semver';
 import { quote } from 'shlex';
 import { join } from 'upath';
 import { GlobalConfig } from '../../../config/global';
@@ -32,7 +32,7 @@ export async function generateLockFile(
     const pnpmCompatibility = pnpmUpdate
       ? pnpmUpdate.newValue
       : config.constraints?.pnpm;
-    if (validRange(pnpmCompatibility)) {
+    if (semver.validRange(pnpmCompatibility)) {
       installPnpm += `@${quote(pnpmCompatibility)}`;
     }
     const preCommands = [installPnpm];
