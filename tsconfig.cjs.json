@@ -7,8 +7,6 @@
     "sourceMap": true,
     "inlineSources": true,
     "importHelpers": true,
-    "allowJs": false,
-    "checkJs": false,
     "types": ["node"]
   },
   "files": ["lib/index.ts", "lib/renovate.ts", "lib/config-validator.ts"],
