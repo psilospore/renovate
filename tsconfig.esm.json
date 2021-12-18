@@ -6,21 +6,12 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "inlineSources": true,
+    "module": "ES2020",
     "importHelpers": true,
     "allowJs": false,
     "checkJs": false,
     "types": ["node"]
   },
-  "exclude": [
-    "./.cache",
-    "./dist",
-    "**/__mocks__/**",
-    "**/__fixtures__/**",
-    "**/__testutil__/**",
-    "**/test/**",
-    "**/*.spec.ts",
-    "jest.config.ts",
-    "./test",
-    "./tools"
-  ]
+  "files": ["lib/renovate.ts", "lib/config-validator.ts"],
+  "include": ["lib/**/*.d.ts"]
 }
